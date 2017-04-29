@@ -1,2 +1,2 @@
 # apstlib
-appstore data capture tool for google app engine
+app store data capture tool for google app engine
