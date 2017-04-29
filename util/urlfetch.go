@@ -1,4 +1,4 @@
-package apstlib
+package util
 
 import (
 	"errors"

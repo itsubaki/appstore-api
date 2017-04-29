@@ -1,4 +1,4 @@
-package apstweb
+package util
 
 import (
 	"bytes"
