@@ -4,7 +4,7 @@ app store data capture tool for google app engine
 
 ## Install
 
-```
+```console
 $ go get github.com/itsubaki/apstlib
 ```
 
@@ -40,7 +40,7 @@ handlers:
 ```yaml
 - description: "Capture Review"
   url: /capture/review?id=${YOUR_APP_ID}
-  schedule: every 8 hours
+  schedule: every 1 hours
 ```
 
 ## Deploy
