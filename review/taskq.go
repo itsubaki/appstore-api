@@ -10,6 +10,7 @@ import (
 )
 
 var indexPutDelay = delay.Func("indexput", IndexDiffPut)
+var storePutDelay = delay.Func("storeput", Insert)
 
 func Taskq(ctx context.Context, id string, feed *model.ReviewFeed) {
 	if !capability.Enabled(ctx, "taskqueue", "*") {
@@ -17,5 +18,6 @@ func Taskq(ctx context.Context, id string, feed *model.ReviewFeed) {
 		return
 	}
 
-	indexPutDelay.Call(ctx, id, feed)
+	indexPutDelay.Call(ctx, "Review_"+id, feed)
+	storePutDelay.Call(ctx, "Review_"+id, feed)
 }

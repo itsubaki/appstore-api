@@ -12,7 +12,7 @@ import (
 	"google.golang.org/appengine/log"
 )
 
-func Handle(w http.ResponseWriter, r *http.Request) {
+func Search(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	id := r.URL.Query().Get("id")
@@ -32,49 +32,54 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query := ""
-	content := r.URL.Query().Get("content")
-	if content != "" {
-		query = "Content=" + content
+	q := r.URL.Query().Get("query")
+	if q != "" {
+		query = q
 	}
 
 	var page string
-	var key string
 	var cached bool
+
+	name := "Review_" + id
+	key := name + "_limit_" + qlimit + "_query_" + q
 
 	switch r.URL.Query().Get("output") {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-		key = id + "_limit_" + qlimit + "_content_" + content + "_json"
+		key = key + "_json"
 		page, cached = util.MemGet(ctx, key)
+
 		if cached {
 			break
 		}
 
-		list := IndexQuery(ctx, id, query, limit)
+		list := IndexQuery(ctx, name, query, limit)
 		page, err = util.ToJson(list)
 
 	case "jsonp":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-		key = id + "_limit_" + qlimit + "_content_" + content + "_jsonp"
+		key = key + "_jsonp"
 		page, cached = util.MemGet(ctx, key)
+
 		if cached {
 			break
 		}
 
-		list := IndexQuery(ctx, id, query, limit)
+		list := IndexQuery(ctx, name, query, limit)
 		page, err = util.ToJsonPretty(list)
 
 	default:
-		key = id + "_limit_" + qlimit + "_content_" + content + "_html"
+		key = key + "_html"
 		page, cached = util.MemGet(ctx, key)
+
 		if cached {
 			page = "(cache)<br>" + page
 			break
 		}
 
-		list := IndexQuery(ctx, id, query, limit)
+		list := IndexQuery(ctx, name, query, limit)
 		for _, r := range list {
 			page = page + util.FontColor(r) + "<br>"
 		}

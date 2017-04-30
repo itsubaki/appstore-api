@@ -8,8 +8,8 @@ import (
 	"google.golang.org/appengine/search"
 )
 
-func IndexQueryIDOnly(ctx context.Context, id string, limit int) []string {
-	index, err := search.Open("Review_" + id)
+func IndexQueryIDOnly(ctx context.Context, name string, limit int) []string {
+	index, err := search.Open(name)
 	if err != nil {
 		log.Warningf(ctx, err.Error())
 		return []string{}
@@ -45,8 +45,8 @@ func IndexQueryIDOnly(ctx context.Context, id string, limit int) []string {
 	return list
 }
 
-func IndexQuery(ctx context.Context, id, query string, limit int) model.ReviewList {
-	index, err := search.Open("Review_" + id)
+func IndexQuery(ctx context.Context, name, query string, limit int) model.ReviewList {
+	index, err := search.Open(name)
 	if err != nil {
 		log.Warningf(ctx, err.Error())
 		return model.ReviewList{}
@@ -92,8 +92,8 @@ func IndexQuery(ctx context.Context, id, query string, limit int) model.ReviewLi
 	return list
 }
 
-func IndexPut(ctx context.Context, id string, feed *model.ReviewFeed) {
-	index, err := search.Open("Review_" + id)
+func IndexPut(ctx context.Context, name string, feed *model.ReviewFeed) {
+	index, err := search.Open(name)
 	if err != nil {
 		log.Warningf(ctx, err.Error())
 		return
@@ -120,19 +120,19 @@ func IndexPut(ctx context.Context, id string, feed *model.ReviewFeed) {
 
 }
 
-func IndexDiffPut(ctx context.Context, id string, feed *model.ReviewFeed) {
+func IndexDiffPut(ctx context.Context, name string, feed *model.ReviewFeed) {
 	rmap := map[string]model.Review{}
 	for _, r := range feed.ReviewList {
 		rmap[r.ID] = r
 	}
 
-	docIDs := IndexQueryIDOnly(ctx, id, len(rmap))
+	docIDs := IndexQueryIDOnly(ctx, name, len(rmap))
 	for _, docID := range docIDs {
 		delete(rmap, docID)
 	}
 
 	if len(rmap) == 0 {
-		log.Debugf(ctx, "new review is empty.")
+		log.Debugf(ctx, "no review.")
 		return
 	}
 
@@ -142,6 +142,6 @@ func IndexDiffPut(ctx context.Context, id string, feed *model.ReviewFeed) {
 	}
 
 	f := &model.ReviewFeed{ReviewList: rlist}
-	IndexPut(ctx, id, f)
+	IndexPut(ctx, name, f)
 
 }

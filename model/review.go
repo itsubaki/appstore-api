@@ -5,17 +5,6 @@ import (
 	"strings"
 )
 
-type ReviewDoc struct {
-	Title     string
-	Content   string
-	Author    string
-	Rating    string
-	Version   string
-	Updated   string
-	VoteSum   string
-	VoteCount string
-}
-
 type Review struct {
 	ID        string `xml:"id"`
 	Title     string `xml:"title"`
@@ -34,11 +23,6 @@ func (r *Review) Json() (string, error) {
 }
 
 func (r *Review) String() string {
-	content := strings.Replace(r.Content, "\n", " ", -1)
-	return "[" + r.Rating + "][" + r.Title + "] " + content + "/" + r.Author + "(" + r.Updated + ")"
-}
-
-func (r *ReviewDoc) String() string {
 	content := strings.Replace(r.Content, "\n", " ", -1)
 	return "[" + r.Rating + "][" + r.Title + "] " + content + "/" + r.Author + "(" + r.Updated + ")"
 }
