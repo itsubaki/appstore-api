@@ -37,3 +37,8 @@ func (r *Review) String() string {
 	content := strings.Replace(r.Content, "\n", " ", -1)
 	return "[" + r.Rating + "][" + r.Title + "] " + content + "/" + r.Author + "(" + r.Updated + ")"
 }
+
+func (r *ReviewDoc) String() string {
+	content := strings.Replace(r.Content, "\n", " ", -1)
+	return "[" + r.Rating + "][" + r.Title + "] " + content + "/" + r.Author + "(" + r.Updated + ")"
+}

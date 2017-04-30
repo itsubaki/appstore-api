@@ -9,7 +9,7 @@ import (
 	"google.golang.org/appengine/log"
 )
 
-var indexPutDelay = delay.Func("indexput", IndexPut)
+var indexPutDelay = delay.Func("indexput", IndexDiffPut)
 
 func Taskq(ctx context.Context, id string, feed *model.ReviewFeed) {
 	if !capability.Enabled(ctx, "taskqueue", "*") {
