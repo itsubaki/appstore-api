@@ -62,5 +62,5 @@ $ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?query=ドラ�
 
 ```console
 $ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=${YOUR_IOS_APP_ID}&query=運営"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=${YOUR_IOS_APP_ID}&query=楽しい"
 ```
