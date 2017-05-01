@@ -75,6 +75,10 @@ func NewReviewFeed(b []byte) *ReviewFeed {
 		return nil
 	}
 
+	if len(feed.ReviewList) < 2 {
+		return &ReviewFeed{ReviewList: ReviewList{}}
+	}
+
 	// ReviewList[0] is app entry(no review entry)
 	feed.ReviewList = feed.ReviewList[1:]
 	return &feed
