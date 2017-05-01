@@ -2,13 +2,16 @@
 app store data capture tool for google app engine
 
 
-## Install
+## Install & Deploy
 
 ```console
 $ go get github.com/itsubaki/apstlib
+$ ls
+app.yaml cron.yaml main.go
+$ gcloud app deploy app.yaml --project ${YOUR_GAE_PROJECT_ID}
 ```
 
-## Make Google App Engine Application
+## GAE Application
 
 ### main.go
 
@@ -41,17 +44,9 @@ handlers:
 - description: "Capture Review"
   url: /review/capture?id=${YOUR_IOS_APP_ID}
   schedule: every 1 hours
-- description: "ranking"
+- description: "Capture Ranking"
   url: /ranking/capture
   schedule: every 24 hours
-```
-
-## Deploy
-
-```console
-$ ls
-app.yaml cron.yaml main.go
-$ gcloud app deploy app.yaml --project ${YOUR_GAE_PROJECT_ID}
 ```
 
 ## Example
