@@ -36,8 +36,7 @@ func Capture(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	name := "Ranking_" + country + "_" + feed + "_" + genre
 	f := model.NewAppFeed(b)
-
+	name := "Ranking_" + country + "_" + feed + "_" + genre
 	Taskq(ctx, name, f)
 }

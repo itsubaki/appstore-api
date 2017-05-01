@@ -12,12 +12,12 @@ import (
 var indexPutDelay = delay.Func("indexput", IndexDiffPut)
 var storePutDelay = delay.Func("storeput", Insert)
 
-func Taskq(ctx context.Context, id string, feed *model.ReviewFeed) {
+func Taskq(ctx context.Context, name string, feed *model.ReviewFeed) {
 	if !capability.Enabled(ctx, "taskqueue", "*") {
 		log.Warningf(ctx, "taskqueue is currently unavailable.")
 		return
 	}
 
-	indexPutDelay.Call(ctx, "Review_"+id, feed)
-	storePutDelay.Call(ctx, "Review_"+id, feed)
+	indexPutDelay.Call(ctx, name, feed)
+	storePutDelay.Call(ctx, name, feed)
 }
