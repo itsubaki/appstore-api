@@ -20,6 +20,10 @@ func Limit(values url.Values, init int) int {
 		lmt = init
 	}
 
+	if lmt < 3 {
+		lmt = 3
+	}
+
 	return lmt
 }
 
