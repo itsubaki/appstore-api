@@ -55,7 +55,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		}
 
 		list := IndexQuery(ctx, name, query, limit)
-		page, err = util.ToJson(list)
+		page, err = util.Json(list)
 
 	case "jsonp":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -66,7 +66,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		}
 
 		list := IndexQuery(ctx, name, query, limit)
-		page, err = util.ToJsonPretty(list)
+		page, err = util.Jsonp(list)
 
 	default:
 		key = key + "_html"

@@ -54,10 +54,10 @@ func Latest(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Query().Get("output") {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		content, err = util.ToJson(list)
+		content, err = util.Json(list)
 	case "jsonp":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		content, err = util.ToJsonPretty(list)
+		content, err = util.Jsonp(list)
 	default:
 		for _, app := range list {
 			content = content + app.String() + "<br>"

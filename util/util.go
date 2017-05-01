@@ -22,7 +22,7 @@ func FontColor(r model.Review) string {
 	return "<font color=\"" + color + "\">" + r.String() + "</font>"
 }
 
-func ToJson(in interface{}) (string, error) {
+func Json(in interface{}) (string, error) {
 	b, err := json.Marshal(in)
 	if err != nil {
 		return "", err
@@ -30,7 +30,7 @@ func ToJson(in interface{}) (string, error) {
 	return string(b), nil
 }
 
-func ToJsonPretty(in interface{}) (string, error) {
+func Jsonp(in interface{}) (string, error) {
 	b, err := json.Marshal(in)
 	if err != nil {
 		return "", err

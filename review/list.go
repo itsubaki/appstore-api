@@ -31,7 +31,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		}
 
 		ids := Kinds(ctx, "Review_")
-		page, err = util.ToJson(ids)
+		page, err = util.Json(ids)
 	case "jsonp":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
@@ -41,7 +41,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		}
 
 		ids := Kinds(ctx, "Review_")
-		page, err = util.ToJsonPretty(ids)
+		page, err = util.Jsonp(ids)
 	default:
 		key = "Review_list_html"
 		if page, cached = util.MemGet(ctx, key); cached {
