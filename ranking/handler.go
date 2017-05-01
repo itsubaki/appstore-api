@@ -71,4 +71,5 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprint(w, content)
+	//IndexDrop(ctx, "Ranking_"+country+"_"+feed+"_"+genre)
 }

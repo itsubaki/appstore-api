@@ -12,6 +12,7 @@ func AppEngine() {
 	http.HandleFunc("/", root)
 
 	http.HandleFunc("/ranking", ranking.Handle)
+	http.HandleFunc("/capture/ranking", ranking.Capture)
 
 	http.HandleFunc("/capture/review", review.Capture)
 	http.HandleFunc("/search/review", review.Search)
