@@ -15,16 +15,16 @@ func Limit(values url.Values, init int) int {
 		return init
 	}
 
-	lmt, err := strconv.Atoi(input)
+	limit, err := strconv.Atoi(input)
 	if err != nil {
-		lmt = init
+		limit = init
 	}
 
-	if lmt < 3 {
-		lmt = 3
+	if limit < 3 {
+		limit = 3
 	}
 
-	return lmt
+	return limit
 }
 
 func Parse(values url.Values) (genre, feed, country string) {
