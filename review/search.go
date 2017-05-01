@@ -44,9 +44,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 		key = key + "_json"
-		page, cached = util.MemGet(ctx, key)
-
-		if cached {
+		if page, cached = util.MemGet(ctx, key); cached {
 			break
 		}
 
@@ -57,9 +55,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 		key = key + "_jsonp"
-		page, cached = util.MemGet(ctx, key)
-
-		if cached {
+		if page, cached = util.MemGet(ctx, key); cached {
 			break
 		}
 
@@ -68,9 +64,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 
 	default:
 		key = key + "_html"
-		page, cached = util.MemGet(ctx, key)
-
-		if cached {
+		if page, cached = util.MemGet(ctx, key); cached {
 			page = "(cache)<br>" + page
 			break
 		}

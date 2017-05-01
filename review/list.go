@@ -26,8 +26,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 		key = "Review_list_json"
-		page, cached = util.MemGet(ctx, key)
-		if cached {
+		if page, cached = util.MemGet(ctx, key); cached {
 			break
 		}
 
@@ -37,8 +36,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 		key = "Review_list_jsonp"
-		page, cached = util.MemGet(ctx, key)
-		if cached {
+		if page, cached = util.MemGet(ctx, key); cached {
 			break
 		}
 
@@ -46,8 +44,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		page, err = util.ToJsonPretty(ids)
 	default:
 		key = "Review_list_html"
-		page, cached = util.MemGet(ctx, key)
-		if cached {
+		if page, cached = util.MemGet(ctx, key); cached {
 			page = "(cache)<br>" + page
 			break
 		}
