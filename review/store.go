@@ -13,7 +13,7 @@ import (
 	"google.golang.org/appengine/log"
 )
 
-func List(ctx context.Context) []int {
+func Kinds(ctx context.Context, prefix string) []int {
 	kinds, err := datastore.Kinds(ctx)
 	if err != nil {
 		log.Warningf(ctx, err.Error())
@@ -22,7 +22,7 @@ func List(ctx context.Context) []int {
 
 	list := []int{}
 	for _, k := range kinds {
-		if !strings.HasPrefix(k, "Review_") {
+		if !strings.HasPrefix(k, prefix) {
 			continue
 		}
 		id := strings.Split(k, "_")[1]
