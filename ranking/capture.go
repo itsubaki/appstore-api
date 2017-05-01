@@ -14,18 +14,7 @@ import (
 func Capture(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	country := r.URL.Query().Get("country")
-	if country == "" {
-		country = "jp"
-	}
-
-	feed := r.URL.Query().Get("feed")
-	if feed == "" {
-		feed = "grossing"
-	}
-
-	genre := model.Genre(r.URL.Query().Get("genre"))
-
+	genre, feed, country := util.Parse(r.URL.Query())
 	url := util.RankingURL(200, genre, feed, country)
 	log.Infof(ctx, url)
 
@@ -37,6 +26,7 @@ func Capture(w http.ResponseWriter, r *http.Request) {
 	}
 
 	f := model.NewAppFeed(b)
+
 	name := "Ranking_" + country + "_" + feed + "_" + genre
 	Taskq(ctx, name, f)
 }

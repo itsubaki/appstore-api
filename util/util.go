@@ -3,9 +3,40 @@ package util
 import (
 	"bytes"
 	"encoding/json"
+	"net/url"
+	"strconv"
 
 	"github.com/itsubaki/apstlib/model"
 )
+
+func Limit(values url.Values, init int) int {
+	input := values.Get("limit")
+	if input == "" {
+		return init
+	}
+
+	lmt, err := strconv.Atoi(input)
+	if err != nil {
+		lmt = init
+	}
+
+	return lmt
+}
+
+func Parse(values url.Values) (genre, feed, country string) {
+
+	genre = model.Genre(values.Get("genre"))
+
+	if country = values.Get("country"); country == "" {
+		country = "jp"
+	}
+
+	if feed = values.Get("feed"); feed == "" {
+		feed = "grossing"
+	}
+
+	return
+}
 
 func FontColor(r model.Review) string {
 	color := "black"

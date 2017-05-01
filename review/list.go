@@ -16,12 +16,14 @@ import (
 func List(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
+	output := r.URL.Query().Get("output")
+
 	var key string
 	var page string
 	var cached bool
 	var err error
 
-	switch r.URL.Query().Get("output") {
+	switch output {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 

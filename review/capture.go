@@ -23,11 +23,7 @@ func Capture(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	country := r.URL.Query().Get("country")
-	if country == "" {
-		country = "jp"
-	}
-
+	_, _, country := util.Parse(r.URL.Query())
 	url := util.ReviewURL(id, country)
 	log.Infof(ctx, url)
 

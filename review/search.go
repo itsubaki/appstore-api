@@ -21,25 +21,17 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	qlimit := r.URL.Query().Get("limit")
-	if qlimit == "" {
-		qlimit = "50"
-	}
-	limit, err := strconv.Atoi(qlimit)
-	if err != nil {
-		log.Warningf(ctx, err.Error())
-		limit = 50
-	}
-
+	output := r.URL.Query().Get("output")
 	query := r.URL.Query().Get("query")
+	limit := util.Limit(r.URL.Query(), 50)
+	name := "Review_" + id
+	key := name + "_limit_" + strconv.Itoa(limit) + "_query_" + query
 
 	var page string
 	var cached bool
+	var err error
 
-	name := "Review_" + id
-	key := name + "_limit_" + qlimit + "_query_" + query
-
-	switch r.URL.Query().Get("output") {
+	switch output {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 

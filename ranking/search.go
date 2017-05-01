@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/itsubaki/apstlib/model"
 	"github.com/itsubaki/apstlib/util"
 
 	"google.golang.org/appengine"
@@ -16,36 +15,18 @@ import (
 func Search(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	qlimit := r.URL.Query().Get("limit")
-	if qlimit == "" {
-		qlimit = "50"
-	}
-	limit, err := strconv.Atoi(qlimit)
-	if err != nil {
-		log.Warningf(ctx, err.Error())
-		limit = 50
-	}
-
-	country := r.URL.Query().Get("country")
-	if country == "" {
-		country = "jp"
-	}
-
-	feed := r.URL.Query().Get("feed")
-	if feed == "" {
-		feed = "grossing"
-	}
-
-	genre := model.Genre(r.URL.Query().Get("genre"))
+	output := r.URL.Query().Get("output")
 	query := r.URL.Query().Get("query")
-
+	limit := util.Limit(r.URL.Query(), 50)
+	genre, feed, country := util.Parse(r.URL.Query())
 	name := "Ranking_" + country + "_" + feed + "_" + genre
-	key := name + "_limit_" + qlimit + "_query_" + query
+	key := name + "_limit_" + strconv.Itoa(limit) + "_query_" + query
 
 	var page string
 	var cached bool
+	var err error
 
-	switch r.URL.Query().Get("output") {
+	switch output {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
