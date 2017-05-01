@@ -59,13 +59,13 @@ $ gcloud app deploy app.yaml --project ${YOUR_GAE_PROJECT_ID}
 ### Ranking
 
 ```console
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking?output=json&limit=3"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking?output=json&limit=100"
 $ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?output=json&query=ドラゴンズ"
 ```
 
 ### Review
 
 ```console
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review?output=json"
 $ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=493470467&output=json&query=運営"
 ```
