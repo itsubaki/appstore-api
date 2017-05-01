@@ -39,8 +39,11 @@ handlers:
 
 ```yaml
 - description: "Capture Review"
-  url: /capture/review?id=${YOUR_IOS_APP_ID}
+  url: /review/capture?id=${YOUR_IOS_APP_ID}
   schedule: every 1 hours
+- description: "ranking"
+  url: /ranking/capture
+  schedule: every 24 hours
 ```
 
 ## Deploy
@@ -49,4 +52,20 @@ handlers:
 $ ls
 app.yaml cron.yaml main.go
 $ gcloud app deploy app.yaml --project ${YOUR_GAE_PROJECT_ID}
+```
+
+## Example
+
+### Ranking
+
+```console
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking?output=json&limit=3"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?output=json&query=ドラゴンズ"
+```
+
+### Review
+
+```console
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=493470467&output=json&query=運営"
 ```
