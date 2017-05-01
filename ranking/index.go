@@ -23,7 +23,6 @@ func IndexQuery(ctx context.Context, name, query string, limit int) model.AppDoc
 		Sort: &search.SortOptions{
 			Expressions: []search.SortExpression{
 				{Expr: "Timestamp", Reverse: false},
-				{Expr: "Rank", Reverse: true},
 			},
 		},
 	}
