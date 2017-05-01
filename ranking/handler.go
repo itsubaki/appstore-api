@@ -46,18 +46,20 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	query := r.URL.Query().Get("query")
 	f := model.NewAppFeed(b)
+	list := f.Select(query)
 
 	var content string
 	switch r.URL.Query().Get("output") {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		content, err = util.ToJson(f)
+		content, err = util.ToJson(list)
 	case "jsonp":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		content, err = util.ToJsonPretty(f)
+		content, err = util.ToJsonPretty(list)
 	default:
-		for _, app := range f.AppList {
+		for _, app := range list {
 			content = content + app.String() + "<br>"
 		}
 	}

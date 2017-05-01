@@ -31,17 +31,13 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		limit = 50
 	}
 
-	query := ""
-	q := r.URL.Query().Get("query")
-	if q != "" {
-		query = q
-	}
+	query := r.URL.Query().Get("query")
 
 	var page string
 	var cached bool
 
 	name := "Review_" + id
-	key := name + "_limit_" + qlimit + "_query_" + q
+	key := name + "_limit_" + qlimit + "_query_" + query
 
 	switch r.URL.Query().Get("output") {
 	case "json":

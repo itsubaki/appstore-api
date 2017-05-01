@@ -39,7 +39,7 @@ handlers:
 
 ```yaml
 - description: "Capture Review"
-  url: /capture/review?id=${YOUR_APP_ID}
+  url: /capture/review?id=${YOUR_IOS_APP_ID}
   schedule: every 1 hours
 ```
 
@@ -47,6 +47,6 @@ handlers:
 
 ```console
 $ ls
-app.yaml cron.yaml	main.go
-$ gcloud app deploy app.yaml --project ${YOUR_GAE_PROJECT}
+app.yaml cron.yaml main.go
+$ gcloud app deploy app.yaml --project ${YOUR_GAE_PROJECT_ID}
 ```

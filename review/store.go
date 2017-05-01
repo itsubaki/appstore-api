@@ -1,6 +1,10 @@
 package review
 
 import (
+	"sort"
+	"strconv"
+	"strings"
+
 	"github.com/itsubaki/apstlib/model"
 	"golang.org/x/net/context"
 
@@ -8,6 +12,32 @@ import (
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"
 )
+
+func List(ctx context.Context) []int {
+	kinds, err := datastore.Kinds(ctx)
+	if err != nil {
+		log.Warningf(ctx, err.Error())
+		return []int{}
+	}
+
+	list := []int{}
+	for _, k := range kinds {
+		if !strings.HasPrefix(k, "Review_") {
+			continue
+		}
+		id := strings.Split(k, "_")[1]
+		idint, err := strconv.Atoi(id)
+		if err != nil {
+			log.Warningf(ctx, err.Error())
+			continue
+		}
+		list = append(list, idint)
+	}
+	sort.Sort(sort.Reverse(sort.IntSlice(list)))
+
+	return list
+
+}
 
 func Select(ctx context.Context, kind string, limit int) model.ReviewList {
 	if !capability.Enabled(ctx, "datastore_v3", "*") {

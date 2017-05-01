@@ -1,6 +1,6 @@
 package model
 
-var m = map[string]string{
+var genre = map[string]string{
 	"business":         "6000",
 	"weather":          "6001",
 	"utilities":        "6002",
@@ -27,7 +27,7 @@ var m = map[string]string{
 }
 
 func Genre(name string) string {
-	v, ok := m[name]
+	v, ok := genre[name]
 	if ok {
 		return v
 	}
