@@ -5,26 +5,54 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
-	"github.com/itsubaki/apst/util"
+	"github.com/itsubaki/apstlib/util"
 
 	"google.golang.org/appengine"
+	"google.golang.org/appengine/log"
 )
 
 func List(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
-	ids := Kinds(ctx, "Review_")
 
+	var key string
 	var page string
+	var cached bool
+	var err error
 
 	switch r.URL.Query().Get("output") {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		page = util.ToJson(ids)
+
+		key = "Review_list_json"
+		page, cached = util.MemGet(ctx, key)
+		if cached {
+			break
+		}
+
+		ids := Kinds(ctx, "Review_")
+		page, err = util.ToJson(ids)
 	case "jsonp":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		page = util.ToJsonPretty(ids)
+
+		key = "Review_list_jsonp"
+		page, cached = util.MemGet(ctx, key)
+		if cached {
+			break
+		}
+
+		ids := Kinds(ctx, "Review_")
+		page, err = util.ToJsonPretty(ids)
 	default:
+		key = "Review_list_html"
+		page, cached = util.MemGet(ctx, key)
+		if cached {
+			page = "(cache)<br>" + page
+			break
+		}
+
+		ids := Kinds(ctx, "Review_")
 		for _, id := range ids {
 			sid := strconv.Itoa(id)
 			url := os.Getenv("external_url")
@@ -32,6 +60,16 @@ func List(w http.ResponseWriter, r *http.Request) {
 			page = page + href + "<br>"
 		}
 	}
-	fmt.Fprintf(w, page)
+
+	if err != nil {
+		log.Warningf(ctx, err.Error())
+		fmt.Fprint(w, err.Error())
+		return
+	}
+
+	fmt.Fprint(w, page)
+	if !cached {
+		util.MemPut(ctx, key, page, 10*time.Minute)
+	}
 
 }
