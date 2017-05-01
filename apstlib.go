@@ -11,11 +11,12 @@ import (
 func AppEngine() {
 	http.HandleFunc("/", root)
 
-	http.HandleFunc("/ranking", ranking.Handle)
-	http.HandleFunc("/capture/ranking", ranking.Capture)
+	http.HandleFunc("/ranking", ranking.Latest)
+	http.HandleFunc("/ranking/capture", ranking.Capture)
+	http.HandleFunc("/ranking/search", ranking.Search)
 
-	http.HandleFunc("/capture/review", review.Capture)
-	http.HandleFunc("/search/review", review.Search)
+	http.HandleFunc("/review/capture", review.Capture)
+	http.HandleFunc("/review/search", review.Search)
 }
 
 func root(w http.ResponseWriter, r *http.Request) {

@@ -11,6 +11,52 @@ import (
 	"google.golang.org/appengine/search"
 )
 
+func IndexQuery(ctx context.Context, name, query string, limit int) model.AppDocList {
+	index, err := search.Open(name)
+	if err != nil {
+		log.Warningf(ctx, err.Error())
+		return model.AppDocList{}
+	}
+
+	opt := search.SearchOptions{
+		Limit: limit,
+		Sort: &search.SortOptions{
+			Expressions: []search.SortExpression{
+				{Expr: "Timestamp", Reverse: false},
+			},
+		},
+	}
+
+	list := model.AppDocList{}
+	for t := index.Search(ctx, query, &opt); ; {
+		var doc model.AppDoc
+		_, err := t.Next(&doc)
+
+		if err == search.Done {
+			break
+		}
+
+		if err != nil {
+			log.Errorf(ctx, err.Error())
+			return list
+		}
+
+		app := model.AppDoc{
+			Rank:      doc.Rank,
+			ID:        doc.ID,
+			Name:      doc.Name,
+			BundleID:  doc.BundleID,
+			Rights:    doc.Rights,
+			Artist:    doc.Artist,
+			Timestamp: doc.Timestamp,
+		}
+
+		list = append(list, app)
+	}
+
+	return list
+}
+
 func IndexDrop(ctx context.Context, name string) {
 	index, err := search.Open(name)
 	if err != nil {

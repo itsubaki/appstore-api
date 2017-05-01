@@ -12,7 +12,7 @@ import (
 	"google.golang.org/appengine/log"
 )
 
-func Handle(w http.ResponseWriter, r *http.Request) {
+func Latest(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 	qlimit := r.URL.Query().Get("limit")
 	if qlimit == "" {

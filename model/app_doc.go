@@ -11,3 +11,9 @@ type AppDoc struct {
 	Artist    string
 	Timestamp time.Time
 }
+
+type AppDocList []AppDoc
+
+func (app *AppDoc) String() string {
+	return app.Timestamp.String() + " [" + app.Rank + "] " + app.Name + "(" + app.ID + ")" + " [" + app.Artist + "]"
+}
