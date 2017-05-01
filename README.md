@@ -54,13 +54,13 @@ handlers:
 ### Ranking
 
 ```console
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking?output=json&limit=100"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?output=json&query=ドラゴンズ"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking?limit=100"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?query=ドラゴンズ&output=json"
 ```
 
 ### Review
 
 ```console
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review?output=json"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=493470467&output=json&query=運営"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=${YOUR_IOS_APP_ID}&query=運営"
 ```
