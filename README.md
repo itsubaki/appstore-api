@@ -1,11 +1,14 @@
 # apstlib
-app store data capture tool for Google App Engine
+
+app store data capture tool
 
 ## Required
 
- - go 1.8
- - Google Cloud Platform Account and Project
- - Google Cloud SDK
+- go 1.8
+- Google Cloud Platform Account and Project
+- Google Cloud SDK
+
+# How to Build
 
 ## Install
 
@@ -13,31 +16,23 @@ app store data capture tool for Google App Engine
 $ go get github.com/itsubaki/apstlib
 ```
 
-## Deploy
-
-```console
-$ ls
-app.yaml cron.yaml main.go
-$ gcloud app deploy app.yaml --project ${PROJECT_ID}
-```
-
-### main.go
+## Make Google App Engine Project
 
 ```go
+// main.go
 package example
 
 import (
-	"github.com/itsubaki/apstlib"
+    "github.com/itsubaki/apstlib"
 )
 
 func init() {
-	apstlib.AppEngine()
+    apstlib.AppEngine()
 }
 ```
 
-### app.yaml
-
 ```yaml
+# app.yaml
 runtime: go
 api_version: go1
 
@@ -46,15 +41,22 @@ handlers:
   script: _go_app
 ```
 
-### cron.yaml
-
 ```yaml
+# cron.yaml
 - description: "Capture Review"
   url: /review/capture?id=${IOS_APP_ID}
   schedule: every 1 hours
 - description: "Capture Ranking"
   url: /ranking/capture
   schedule: every 24 hours
+```
+
+## Deploy
+
+```console
+$ ls
+app.yaml cron.yaml main.go
+$ gcloud app deploy app.yaml --project ${PROJECT_ID}
 ```
 
 ## API Example
