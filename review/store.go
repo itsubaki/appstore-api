@@ -20,7 +20,7 @@ func Kinds(ctx context.Context, prefix string) []int {
 		return []int{}
 	}
 
-	list := []int{}
+	ids := []int{}
 	for _, k := range kinds {
 		if !strings.HasPrefix(k, prefix) {
 			continue
@@ -31,11 +31,11 @@ func Kinds(ctx context.Context, prefix string) []int {
 			log.Warningf(ctx, err.Error())
 			continue
 		}
-		list = append(list, idint)
+		ids = append(ids, idint)
 	}
-	sort.Sort(sort.Reverse(sort.IntSlice(list)))
+	sort.Sort(sort.Reverse(sort.IntSlice(ids)))
 
-	return list
+	return ids
 
 }
 
