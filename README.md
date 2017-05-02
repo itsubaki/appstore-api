@@ -1,17 +1,25 @@
 # apstlib
-app store data capture tool for google app engine
+app store data capture tool for Google App Engine
 
+## Required
 
-## Install & Deploy
+ - go 1.8
+ - Google Cloud Platform Account and Project
+ - Google Cloud SDK
+
+## Install
 
 ```console
 $ go get github.com/itsubaki/apstlib
-$ ls
-app.yaml cron.yaml main.go
-$ gcloud app deploy app.yaml --project ${YOUR_GAE_PROJECT_ID}
 ```
 
-## GAE Application
+## Deploy
+
+```console
+$ ls
+app.yaml cron.yaml main.go
+$ gcloud app deploy app.yaml --project ${PROJECT_ID}
+```
 
 ### main.go
 
@@ -42,26 +50,26 @@ handlers:
 
 ```yaml
 - description: "Capture Review"
-  url: /review/capture?id=${YOUR_IOS_APP_ID}
+  url: /review/capture?id=${IOS_APP_ID}
   schedule: every 1 hours
 - description: "Capture Ranking"
   url: /ranking/capture
   schedule: every 24 hours
 ```
 
-## Example
+## API Example
 
 ### Ranking
 
 ```console
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?id=${YOUR_IOS_APP_ID}"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?query=${YOUR_IOS_APP_ARTIST}"
+$ curl "https://${PROJECT_ID}.appspot.com/ranking"
+$ curl "https://${PROJECT_ID}.appspot.com/ranking/search?id=${IOS_APP_ID}"
+$ curl "https://${PROJECT_ID}.appspot.com/ranking/search?query=${IOS_APP_ARTIST}"
 ```
 
 ### Review
 
 ```console
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=${YOUR_IOS_APP_ID}&query=Rating:5"
+$ curl "https://${YOUR_PROJECT_ID}.appspot.com/review"
+$ curl "https://${PROJECT_ID}.appspot.com/review/search?id=${IOS_APP_ID}&query=Rating:5"
 ```
