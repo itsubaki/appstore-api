@@ -5,8 +5,8 @@ app store data capture tool
 ## Required
 
 - go 1.8
-- Google Cloud Platform Account and Project
-- Google Cloud SDK
+- GCP Account and Project
+- Cloud SDK
 
 # How to Build
 
@@ -16,7 +16,7 @@ app store data capture tool
 $ go get github.com/itsubaki/apstlib
 ```
 
-## Make Google App Engine Project
+## Make GAE Application
 
 ```go
 // main.go
