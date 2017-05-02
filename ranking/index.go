@@ -20,11 +20,11 @@ func IndexQuery(ctx context.Context, name, query string, limit int) model.AppDoc
 
 	opt := search.SearchOptions{
 		Limit: limit,
-		Sort: &search.SortOptions{
-			Expressions: []search.SortExpression{
-				{Expr: "Timestamp", Reverse: false},
-			},
-		},
+		//	Sort: &search.SortOptions{
+		//		Expressions: []search.SortExpression{
+		//			{Expr: "Timestamp", Reverse: false},
+		//		},
+		//	},
 	}
 
 	list := model.AppDocList{}
