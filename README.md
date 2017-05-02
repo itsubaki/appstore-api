@@ -1,6 +1,6 @@
 # apstlib
 
-app store data capture tool
+app store log capture tool
 
 ## Required
 
