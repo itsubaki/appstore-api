@@ -72,6 +72,6 @@ $ curl "https://${PROJECT_ID}.appspot.com/ranking/search?query=${IOS_APP_ARTIST}
 ### Review
 
 ```console
-$ curl "https://${YOUR_PROJECT_ID}.appspot.com/review"
+$ curl "https://${PROJECT_ID}.appspot.com/review"
 $ curl "https://${PROJECT_ID}.appspot.com/review/search?id=${IOS_APP_ID}&query=Rating:5"
 ```
