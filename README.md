@@ -55,12 +55,13 @@ handlers:
 
 ```console
 $ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?query=${YOUR_IOS_APP_NAME}"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?id=${YOUR_IOS_APP_ID}"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/ranking/search?query=${YOUR_IOS_APP_ARTIST}"
 ```
 
 ### Review
 
 ```console
 $ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review"
-$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=${YOUR_IOS_APP_ID}"
+$ curl "https://${YOUR_GAE_PROJECT_ID}.appspot.com/review/search?id=${YOUR_IOS_APP_ID}&query=Rating:5"
 ```
