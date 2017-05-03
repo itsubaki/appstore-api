@@ -16,42 +16,35 @@ func Latest(w http.ResponseWriter, r *http.Request) {
 
 	output := r.URL.Query().Get("output")
 	query := r.URL.Query().Get("query")
+	pretty := r.URL.Query().Get("pretty")
 	limit := util.Limit(r.URL.Query(), 20)
 	genre, feed, country := util.Parse(r.URL.Query())
 
 	url := util.RankingURL(limit, genre, feed, country)
 	log.Infof(ctx, url)
 
-	b, err := util.Fetch(ctx, url)
-	if err != nil {
-		fmt.Fprint(w, err.Error()+"<br>")
-		log.Warningf(ctx, err.Error())
+	b, e := util.Fetch(ctx, url)
+	if e != nil {
+		fmt.Fprint(w, e.Error()+"<br>")
+		log.Warningf(ctx, e.Error())
 		return
 	}
 
 	f := model.NewAppFeed(b)
 	list := f.Select(query)
 
-	var content string
 	switch output {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		content, err = util.Json(list)
-	case "jsonp":
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		content, err = util.Jsonp(list)
+		page, err := util.Json(list, pretty)
+		util.Print(ctx, w, page, err)
 	default:
+		page := ""
 		for _, app := range list {
-			content = content + app.String() + "<br>"
+			page = page + app.String() + "<br>"
 		}
+		util.Print(ctx, w, page, nil)
 	}
 
-	if err != nil {
-		log.Warningf(ctx, err.Error())
-		fmt.Fprint(w, err.Error())
-		return
-	}
-
-	fmt.Fprint(w, content)
 	//IndexDrop(ctx, "Ranking_"+country+"_"+feed+"_"+genre)
 }

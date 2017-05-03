@@ -3,11 +3,26 @@ package util
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"net/http"
 	"net/url"
 	"strconv"
 
+	"golang.org/x/net/context"
+	"google.golang.org/appengine/log"
+
 	"github.com/itsubaki/apstlib/model"
 )
+
+func Print(ctx context.Context, w http.ResponseWriter, page string, err error) {
+	if err != nil {
+		log.Warningf(ctx, err.Error())
+		fmt.Fprint(w, err.Error())
+		return
+	}
+
+	fmt.Fprint(w, page)
+}
 
 func Limit(values url.Values, init int) int {
 	input := values.Get("limit")
@@ -57,7 +72,11 @@ func FontColor(r model.Review) string {
 	return "<font color=\"" + color + "\">" + r.String() + "</font>"
 }
 
-func Json(in interface{}) (string, error) {
+func Json(in interface{}, pretty string) (string, error) {
+	if pretty == "true" {
+		return Jsonp(in)
+	}
+
 	b, err := json.Marshal(in)
 	if err != nil {
 		return "", err

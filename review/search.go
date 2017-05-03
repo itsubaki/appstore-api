@@ -9,7 +9,6 @@ import (
 	"github.com/itsubaki/apstlib/util"
 
 	"google.golang.org/appengine"
-	"google.golang.org/appengine/log"
 )
 
 func Search(w http.ResponseWriter, r *http.Request) {
@@ -23,59 +22,39 @@ func Search(w http.ResponseWriter, r *http.Request) {
 
 	output := r.URL.Query().Get("output")
 	query := r.URL.Query().Get("query")
+	pretty := r.URL.Query().Get("pretty")
 	limit := util.Limit(r.URL.Query(), 50)
-	name := "Review_" + id
-	key := name + "_limit_" + strconv.Itoa(limit) + "_query_" + query
 
-	var page string
-	var cached bool
-	var err error
+	name := "Review_" + id
+	keybase := name + "_limit_" + strconv.Itoa(limit) + "_query_" + query
 
 	switch output {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-		key = key + "_json"
-		if page, cached = util.MemGet(ctx, key); cached {
-			break
+		key := keybase + "_json_pretty_" + pretty
+		if cached, hit := util.MemGet(ctx, key); hit {
+			util.Print(ctx, w, cached, nil)
+			return
 		}
 
 		list := IndexQuery(ctx, name, query, limit)
-		page, err = util.Json(list)
-
-	case "jsonp":
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
-		key = key + "_jsonp"
-		if page, cached = util.MemGet(ctx, key); cached {
-			break
-		}
-
-		list := IndexQuery(ctx, name, query, limit)
-		page, err = util.Jsonp(list)
-
+		page, err := util.Json(list, pretty)
+		util.Print(ctx, w, page, err)
+		util.MemPut(ctx, key, page, 10*time.Minute)
 	default:
-		key = key + "_html"
-		if page, cached = util.MemGet(ctx, key); cached {
-			page = "(cache)<br>" + page
-			break
+		key := keybase + "_html"
+		if cached, hit := util.MemGet(ctx, key); hit {
+			util.Print(ctx, w, "(cache)<br>"+cached, nil)
+			return
 		}
 
+		page := ""
 		list := IndexQuery(ctx, name, query, limit)
 		for _, r := range list {
 			page = page + util.FontColor(r) + "<br>"
 		}
-	}
-
-	if err != nil {
-		log.Warningf(ctx, err.Error())
-		fmt.Fprint(w, err.Error())
-		return
-	}
-
-	fmt.Fprint(w, page)
-	if !cached {
+		util.Print(ctx, w, page, nil)
 		util.MemPut(ctx, key, page, 10*time.Minute)
 	}
-
 }

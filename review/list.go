@@ -1,7 +1,6 @@
 package review
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strconv"
@@ -10,47 +9,36 @@ import (
 	"github.com/itsubaki/apstlib/util"
 
 	"google.golang.org/appengine"
-	"google.golang.org/appengine/log"
 )
 
 func List(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	output := r.URL.Query().Get("output")
-
-	var key string
-	var page string
-	var cached bool
-	var err error
+	pretty := r.URL.Query().Get("pretty")
 
 	switch output {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-		key = "Review_list_json"
-		if page, cached = util.MemGet(ctx, key); cached {
-			break
+		key := "Review_list_json_pretty_" + pretty
+		if cached, hit := util.MemGet(ctx, key); hit {
+			util.Print(ctx, w, cached, nil)
+			return
 		}
 
 		ids := Kinds(ctx, "Review_")
-		page, err = util.Json(ids)
-	case "jsonp":
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
-		key = "Review_list_jsonp"
-		if page, cached = util.MemGet(ctx, key); cached {
-			break
-		}
-
-		ids := Kinds(ctx, "Review_")
-		page, err = util.Jsonp(ids)
+		page, err := util.Json(ids, pretty)
+		util.Print(ctx, w, page, err)
+		util.MemPut(ctx, key, page, 10*time.Minute)
 	default:
-		key = "Review_list_html"
-		if page, cached = util.MemGet(ctx, key); cached {
-			page = "(cache)<br>" + page
-			break
+		key := "Review_list_html"
+		if cached, hit := util.MemGet(ctx, key); hit {
+			util.Print(ctx, w, "(cache)<br>"+cached, nil)
+			return
 		}
 
+		page := ""
 		ids := Kinds(ctx, "Review_")
 		for _, id := range ids {
 			sid := strconv.Itoa(id)
@@ -58,16 +46,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 			href := "<a href=\"" + url + "/review/search?id=" + sid + "\">" + sid + "</a>"
 			page = page + href + "<br>"
 		}
-	}
-
-	if err != nil {
-		log.Warningf(ctx, err.Error())
-		fmt.Fprint(w, err.Error())
-		return
-	}
-
-	fmt.Fprint(w, page)
-	if !cached {
+		util.Print(ctx, w, page, nil)
 		util.MemPut(ctx, key, page, 10*time.Minute)
 	}
 
