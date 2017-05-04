@@ -2,7 +2,6 @@ package review
 
 import (
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -41,10 +40,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		page := ""
 		ids := Kinds(ctx, "Review_")
 		for _, id := range ids {
-			sid := strconv.Itoa(id)
-			url := os.Getenv("external_url")
-			href := "<a href=\"" + url + "/review/search?id=" + sid + "\">" + sid + "</a>"
-			page = page + href + "<br>"
+			page = page + strconv.Itoa(id) + "<br>"
 		}
 		util.Print(ctx, w, page, nil)
 		util.MemPut(ctx, key, page, 10*time.Minute)
