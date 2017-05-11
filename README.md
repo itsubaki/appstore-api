@@ -5,7 +5,7 @@ app store log capture tool
 ## Required
 
 - go 1.8
-- GCP Account and Project
+- GCP Account
 - Cloud SDK
 
 # How to Build
