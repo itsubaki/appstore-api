@@ -13,6 +13,10 @@ import (
 
 func Capture(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
+	if len(r.Header.Get("X-Appengine-Cron")) == 0 {
+		log.Warningf(ctx, "X-Appengine-Cron not found.")
+		return
+	}
 
 	genre, feed, country := util.Parse(r.URL.Query())
 	url := util.RankingURL(200, genre, feed, country)
