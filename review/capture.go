@@ -23,6 +23,12 @@ func Capture(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	appname := r.URL.Query().Get("name")
+	if appname == "" {
+		log.Warningf(ctx, "query[\"name\"] is empty.")
+		return
+	}
+
 	_, _, country := util.Parse(r.URL.Query())
 	url := util.ReviewURL(id, country)
 	log.Infof(ctx, url)
@@ -39,6 +45,5 @@ func Capture(w http.ResponseWriter, r *http.Request) {
 		log.Debugf(ctx, r.String())
 	}
 
-	name := "Review_" + id
-	Taskq(ctx, name, f)
+	Taskq(ctx, id, appname, f)
 }

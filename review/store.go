@@ -98,3 +98,20 @@ func Insert(ctx context.Context, kind string, feed *model.ReviewFeed) {
 		log.Warningf(ctx, err.Error())
 	}
 }
+
+func InsertAppInfo(ctx context.Context, id, appname string) {
+	if !capability.Enabled(ctx, "datastore_v3", "write") {
+		log.Warningf(ctx, "datastore is currently unavailable.")
+		return
+	}
+
+	info := model.AppInfo{
+		ID:   id,
+		Name: appname,
+	}
+
+	k := datastore.NewKey(ctx, "app_info", id, 0, nil)
+	if _, err := datastore.Put(ctx, k, &info); err != nil {
+		log.Warningf(ctx, err.Error())
+	}
+}
