@@ -16,7 +16,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	pretty := r.URL.Query().Get("pretty")
 	limit := util.Limit(r.URL.Query(), 200)
 
-	kind := "app_info"
+	kind := "AppInfo"
 	keybase := kind + "_limit_" + strconv.Itoa(limit)
 
 	switch output {

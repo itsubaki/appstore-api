@@ -110,7 +110,7 @@ func InsertAppInfo(ctx context.Context, id, appname string) {
 		Name: appname,
 	}
 
-	k := datastore.NewKey(ctx, "app_info", id, 0, nil)
+	k := datastore.NewKey(ctx, "AppInfo", id, 0, nil)
 	if _, err := datastore.Put(ctx, k, &info); err != nil {
 		log.Warningf(ctx, err.Error())
 	}
