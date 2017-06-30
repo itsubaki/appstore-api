@@ -3,12 +3,15 @@ package apstlib
 import (
 	"net/http"
 
+	"github.com/itsubaki/apstlib/appinfo"
 	"github.com/itsubaki/apstlib/lang"
 	"github.com/itsubaki/apstlib/ranking"
 	"github.com/itsubaki/apstlib/review"
 )
 
 func AppEngine() {
+	http.HandleFunc("/app", appinfo.List)
+
 	http.HandleFunc("/ranking", ranking.Latest)
 	http.HandleFunc("/ranking/capture", ranking.Capture)
 	http.HandleFunc("/ranking/search", ranking.Search)
