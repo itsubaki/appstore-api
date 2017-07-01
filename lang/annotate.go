@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/itsubaki/apstlib/util"
+	"github.com/itsubaki/apstapi/util"
 
 	language "cloud.google.com/go/language/apiv1"
 	"google.golang.org/appengine"

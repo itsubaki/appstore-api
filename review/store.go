@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/itsubaki/apstlib/model"
+	"github.com/itsubaki/apstapi/model"
 	"golang.org/x/net/context"
 
 	"google.golang.org/appengine/capability"

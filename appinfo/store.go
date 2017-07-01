@@ -3,7 +3,7 @@ package appinfo
 import (
 	"sort"
 
-	"github.com/itsubaki/apstlib/model"
+	"github.com/itsubaki/apstapi/model"
 	"golang.org/x/net/context"
 
 	"google.golang.org/appengine/capability"

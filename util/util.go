@@ -11,7 +11,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/log"
 
-	"github.com/itsubaki/apstlib/model"
+	"github.com/itsubaki/apstapi/model"
 )
 
 func Print(ctx context.Context, w http.ResponseWriter, page string, err error) {

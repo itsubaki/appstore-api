@@ -1,6 +1,6 @@
-# apstlib
+# apstapi
 
-app store log capture tool
+webapi for app store review
 
 ## Required
 
@@ -13,7 +13,7 @@ app store log capture tool
 ## Install
 
 ```console
-$ go get github.com/itsubaki/apstlib
+$ go get github.com/itsubaki/apstapi
 ```
 
 ## Make GAE Application
@@ -23,7 +23,7 @@ $ go get github.com/itsubaki/apstlib
 package example
 
 import (
-    "github.com/itsubaki/apstlib"
+    "github.com/itsubaki/apstapi"
 )
 
 func init() {
@@ -44,7 +44,7 @@ handlers:
 ```yaml
 # cron.yaml
 - description: "Capture Review"
-  url: /review/capture?id=${IOS_APP_ID}
+  url: /review/capture?id=${IOS_APP_ID}&name=${APP_NAME}
   schedule: every 1 hours
 - description: "Capture Ranking"
   url: /ranking/capture
@@ -61,6 +61,13 @@ $ gcloud app deploy cron.yaml
 ```
 
 ## API Example
+
+### AppInfo
+
+```console
+$ curl "https://${PROJECT_ID}.appspot.com/app"
+```
+
 
 ### Ranking
 

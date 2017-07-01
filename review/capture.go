@@ -3,8 +3,8 @@ package review
 import (
 	"net/http"
 
-	"github.com/itsubaki/apstlib/model"
-	"github.com/itsubaki/apstlib/util"
+	"github.com/itsubaki/apstapi/model"
+	"github.com/itsubaki/apstapi/util"
 
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
