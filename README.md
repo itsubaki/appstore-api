@@ -1,4 +1,4 @@
-# apstapi
+# apstweb
 
 app store log collector
 
