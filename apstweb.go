@@ -1,12 +1,12 @@
-package apstapi
+package apstweb
 
 import (
 	"net/http"
 
-	"github.com/itsubaki/apstapi/appinfo"
-	"github.com/itsubaki/apstapi/lang"
-	"github.com/itsubaki/apstapi/ranking"
-	"github.com/itsubaki/apstapi/review"
+	"github.com/itsubaki/apstweb/appinfo"
+	"github.com/itsubaki/apstweb/lang"
+	"github.com/itsubaki/apstweb/ranking"
+	"github.com/itsubaki/apstweb/review"
 )
 
 func AppEngine() {

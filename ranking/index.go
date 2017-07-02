@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/itsubaki/apstapi/model"
+	"github.com/itsubaki/apstweb/model"
 	"golang.org/x/net/context"
 
 	"google.golang.org/appengine/log"

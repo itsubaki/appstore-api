@@ -1,6 +1,6 @@
 # apstapi
 
-webapi for app store review
+app store log collector
 
 ## Required
 
@@ -23,11 +23,11 @@ $ go get github.com/itsubaki/apstapi
 package example
 
 import (
-    "github.com/itsubaki/apstapi"
+    "github.com/itsubaki/apstweb"
 )
 
 func init() {
-    apstlib.AppEngine()
+    apstweb.AppEngine()
 }
 ```
 

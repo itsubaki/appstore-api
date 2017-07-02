@@ -3,7 +3,7 @@ package review
 import (
 	"golang.org/x/net/context"
 
-	"github.com/itsubaki/apstapi/model"
+	"github.com/itsubaki/apstweb/model"
 	"google.golang.org/appengine/capability"
 	"google.golang.org/appengine/delay"
 	"google.golang.org/appengine/log"

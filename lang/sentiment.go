@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/itsubaki/apstapi/util"
+	"github.com/itsubaki/apstweb/util"
 
 	language "cloud.google.com/go/language/apiv1"
 	"google.golang.org/appengine"

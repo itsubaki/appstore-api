@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/itsubaki/apstapi/util"
+	"github.com/itsubaki/apstweb/util"
 
 	"google.golang.org/appengine"
 )

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/itsubaki/apstapi/model"
-	"github.com/itsubaki/apstapi/util"
+	"github.com/itsubaki/apstweb/model"
+	"github.com/itsubaki/apstweb/util"
 
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
