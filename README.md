@@ -1,19 +1,23 @@
 # apstweb
 
-app store log collector
+app store web api
+
+## Feature
+
+ - Collect and Store App Review from AppStore to GCP Datastore/Search
+ - Provide WebAPI for Search in GCP Datastore/Search
 
 ## Required
 
-- go 1.8
-- GCP Account
-- Cloud SDK
+ - go 1.8
+ - GCP Account
 
 # How to Build
 
 ## Install
 
 ```console
-$ go get github.com/itsubaki/apstapi
+$ go get github.com/itsubaki/apstweb
 ```
 
 ## Make GAE Application
