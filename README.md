@@ -61,7 +61,7 @@ handlers:
 $ ls
 app.yaml cron.yaml main.go
 $ gcloud app deploy app.yaml --project ${PROJECT_ID}
-$ gcloud app deploy cron.yaml
+$ gcloud app deploy cron.yaml --project ${PROJECT_ID}
 ```
 
 ## API Example
