@@ -1,6 +1,8 @@
 # apstweb
 
-app store web api
+ - app store web api
+
+## Feature
 
  - Collect Review from AppStore and Store to GCP Datastore/Search
  - Provide WebAPI for Search in GCP Datastore/Search
