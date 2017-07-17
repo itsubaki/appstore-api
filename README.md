@@ -2,9 +2,7 @@
 
 app store web api
 
-## Feature
-
- - Collect and Store App Review from AppStore to GCP Datastore/Search
+ - Collect Review from AppStore and Store to GCP Datastore/Search
  - Provide WebAPI for Search in GCP Datastore/Search
 
 ## Required
