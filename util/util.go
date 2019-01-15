@@ -2,16 +2,15 @@ package util
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
 
-	"golang.org/x/net/context"
+	"github.com/itsubaki/appstore-api/model"
 	"google.golang.org/appengine/log"
-
-	"github.com/itsubaki/apstweb/model"
 )
 
 func Print(ctx context.Context, w http.ResponseWriter, page string, err error) {

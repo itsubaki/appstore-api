@@ -1,9 +1,9 @@
 package util
 
 import (
+	"context"
 	"time"
 
-	"golang.org/x/net/context"
 	"google.golang.org/appengine/capability"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/memcache"

@@ -1,6 +1,4 @@
-# apstweb
-
- - app store web api
+# appstore-api
 
 ## Feature
 
@@ -17,7 +15,7 @@
 ## Install
 
 ```console
-$ go get github.com/itsubaki/apstweb
+$ go get github.com/itsubaki/appstore-api
 ```
 
 ## Make GAE Application
@@ -27,11 +25,11 @@ $ go get github.com/itsubaki/apstweb
 package example
 
 import (
-    "github.com/itsubaki/apstweb"
+    "github.com/itsubaki/appstore-api"
 )
 
 func init() {
-    apstweb.AppEngine()
+    api.Init()
 }
 ```
 

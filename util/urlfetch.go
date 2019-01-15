@@ -1,11 +1,10 @@
 package util
 
 import (
+	"context"
 	"errors"
 	"io/ioutil"
 	"strconv"
-
-	"golang.org/x/net/context"
 
 	"google.golang.org/appengine/capability"
 	"google.golang.org/appengine/log"

@@ -5,9 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/itsubaki/apstweb/util"
-
 	language "cloud.google.com/go/language/apiv1"
+	"github.com/itsubaki/appstore-api/util"
 	"google.golang.org/appengine"
 	pb "google.golang.org/genproto/googleapis/cloud/language/v1"
 )

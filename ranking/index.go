@@ -1,12 +1,11 @@
 package ranking
 
 import (
+	"context"
 	"strconv"
 	"time"
 
-	"github.com/itsubaki/apstweb/model"
-	"golang.org/x/net/context"
-
+	"github.com/itsubaki/appstore-api/model"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/search"
 )

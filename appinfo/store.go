@@ -1,11 +1,10 @@
 package appinfo
 
 import (
+	"context"
 	"sort"
 
-	"github.com/itsubaki/apstweb/model"
-	"golang.org/x/net/context"
-
+	"github.com/itsubaki/appstore-api/model"
 	"google.golang.org/appengine/capability"
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"

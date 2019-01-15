@@ -1,9 +1,9 @@
 package review
 
 import (
-	"golang.org/x/net/context"
+	"context"
 
-	"github.com/itsubaki/apstweb/model"
+	"github.com/itsubaki/appstore-api/model"
 	"google.golang.org/appengine/capability"
 	"google.golang.org/appengine/delay"
 	"google.golang.org/appengine/log"

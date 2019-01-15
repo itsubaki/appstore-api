@@ -1,9 +1,9 @@
 package review
 
 import (
-	"github.com/itsubaki/apstweb/model"
-	"golang.org/x/net/context"
+	"context"
 
+	"github.com/itsubaki/appstore-api/model"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/search"
 )
