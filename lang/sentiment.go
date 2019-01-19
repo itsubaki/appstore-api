@@ -7,8 +7,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/itsubaki/appstore-api/cache"
+	"github.com/itsubaki/appstore-api/format"
+
 	language "cloud.google.com/go/language/apiv1"
-	"github.com/itsubaki/appstore-api/util"
 	"google.golang.org/appengine"
 	pb "google.golang.org/genproto/googleapis/cloud/language/v1"
 )
@@ -47,12 +49,12 @@ func Sentiment(w http.ResponseWriter, r *http.Request) {
 	seed := text + "_pretty_" + pretty
 	hash := sha256.Sum256([]byte(seed))
 	key := string(hash[:16])
-	if cached, hit := util.MemGet(ctx, key); hit {
-		util.Print(ctx, w, cached, nil)
+	if cached, hit := cache.Get(ctx, key); hit {
+		format.Print(ctx, w, cached, nil)
 		return
 	}
 
-	page, err := util.Json(resp, pretty)
-	util.Print(ctx, w, page, err)
-	util.MemPut(ctx, key, page, 10*time.Minute)
+	page, err := format.Json(resp, pretty)
+	format.Print(ctx, w, page, err)
+	cache.Put(ctx, key, page, 10*time.Minute)
 }

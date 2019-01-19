@@ -3,8 +3,8 @@ package review
 import (
 	"net/http"
 
+	"github.com/itsubaki/appstore-api/appstoreurl"
 	"github.com/itsubaki/appstore-api/model"
-	"github.com/itsubaki/appstore-api/util"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 )
@@ -28,11 +28,11 @@ func Capture(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, _, country := util.Parse(r.URL.Query())
-	url := util.ReviewURL(id, country)
+	_, _, country := appstoreurl.Parse(r.URL.Query())
+	url := appstoreurl.ReviewURL(id, country)
 	log.Infof(ctx, url)
 
-	b, err := util.Fetch(ctx, url)
+	b, err := appstoreurl.Fetch(ctx, url)
 	if err != nil {
 		log.Warningf(ctx, err.Error())
 		return

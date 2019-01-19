@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/itsubaki/appstore-api/appstoreurl"
+	"github.com/itsubaki/appstore-api/format"
 	"github.com/itsubaki/appstore-api/model"
-	"github.com/itsubaki/appstore-api/util"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 )
@@ -16,13 +17,13 @@ func Latest(w http.ResponseWriter, r *http.Request) {
 	output := r.URL.Query().Get("output")
 	query := r.URL.Query().Get("query")
 	pretty := r.URL.Query().Get("pretty")
-	limit := util.Limit(r.URL.Query(), 20)
-	genre, feed, country := util.Parse(r.URL.Query())
 
-	url := util.RankingURL(limit, genre, feed, country)
+	limit := appstoreurl.Limit(r.URL.Query(), 20)
+	genre, feed, country := appstoreurl.Parse(r.URL.Query())
+	url := appstoreurl.RankingURL(limit, genre, feed, country)
 	log.Infof(ctx, url)
 
-	b, e := util.Fetch(ctx, url)
+	b, e := appstoreurl.Fetch(ctx, url)
 	if e != nil {
 		fmt.Fprint(w, e.Error()+"<br>")
 		log.Warningf(ctx, e.Error())
@@ -35,14 +36,14 @@ func Latest(w http.ResponseWriter, r *http.Request) {
 	switch output {
 	case "json":
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		page, err := util.Json(list, pretty)
-		util.Print(ctx, w, page, err)
+		page, err := format.Json(list, pretty)
+		format.Print(ctx, w, page, err)
 	default:
 		page := ""
 		for _, app := range list {
 			page = page + app.String() + "<br>"
 		}
-		util.Print(ctx, w, page, nil)
+		format.Print(ctx, w, page, nil)
 	}
 
 	//IndexDrop(ctx, "Ranking_"+country+"_"+feed+"_"+genre)

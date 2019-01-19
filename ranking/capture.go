@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/itsubaki/appstore-api/appstoreurl"
 	"github.com/itsubaki/appstore-api/model"
-	"github.com/itsubaki/appstore-api/util"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 )
@@ -17,11 +17,11 @@ func Capture(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	genre, feed, country := util.Parse(r.URL.Query())
-	url := util.RankingURL(200, genre, feed, country)
+	genre, feed, country := appstoreurl.Parse(r.URL.Query())
+	url := appstoreurl.RankingURL(200, genre, feed, country)
 	log.Infof(ctx, url)
 
-	b, err := util.Fetch(ctx, url)
+	b, err := appstoreurl.Fetch(ctx, url)
 	if err != nil {
 		fmt.Fprint(w, err.Error()+"<br>")
 		log.Warningf(ctx, err.Error())

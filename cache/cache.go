@@ -1,4 +1,4 @@
-package util
+package cache
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"google.golang.org/appengine/memcache"
 )
 
-func MemGet(ctx context.Context, key string) (string, bool) {
+func Get(ctx context.Context, key string) (string, bool) {
 	if !capability.Enabled(ctx, "memcache", "*") {
 		log.Warningf(ctx, "memcache is currently unavailable.")
 		return "", false
@@ -29,7 +29,7 @@ func MemGet(ctx context.Context, key string) (string, bool) {
 	return "", false
 }
 
-func MemPut(ctx context.Context, key, val string, expire time.Duration) {
+func Put(ctx context.Context, key, val string, expire time.Duration) {
 	if !capability.Enabled(ctx, "memcache", "*") {
 		log.Warningf(ctx, "memcache is currently unavailable.")
 		return

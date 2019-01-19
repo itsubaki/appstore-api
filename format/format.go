@@ -1,4 +1,4 @@
-package util
+package format
 
 import (
 	"bytes"
@@ -6,10 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
-	"strconv"
 
 	"github.com/itsubaki/appstore-api/model"
+
 	"google.golang.org/appengine/log"
 )
 
@@ -21,39 +20,6 @@ func Print(ctx context.Context, w http.ResponseWriter, page string, err error) {
 	}
 
 	fmt.Fprint(w, page)
-}
-
-func Limit(values url.Values, init int) int {
-	input := values.Get("limit")
-	if input == "" {
-		return init
-	}
-
-	limit, err := strconv.Atoi(input)
-	if err != nil {
-		limit = init
-	}
-
-	if limit < 3 {
-		limit = 3
-	}
-
-	return limit
-}
-
-func Parse(values url.Values) (genre, feed, country string) {
-
-	genre = model.Genre(values.Get("genre"))
-
-	if country = values.Get("country"); country == "" {
-		country = "jp"
-	}
-
-	if feed = values.Get("feed"); feed == "" {
-		feed = "grossing"
-	}
-
-	return
 }
 
 func FontColor(r model.Review) string {

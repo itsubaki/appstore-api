@@ -5,7 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/itsubaki/appstore-api/util"
+	"github.com/itsubaki/appstore-api/cache"
+	"github.com/itsubaki/appstore-api/format"
 	"google.golang.org/appengine"
 )
 
@@ -20,19 +21,19 @@ func List(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 		key := "Review_list_json_pretty_" + pretty
-		if cached, hit := util.MemGet(ctx, key); hit {
-			util.Print(ctx, w, cached, nil)
+		if cached, hit := cache.Get(ctx, key); hit {
+			format.Print(ctx, w, cached, nil)
 			return
 		}
 
 		ids := Kinds(ctx, "Review_")
-		page, err := util.Json(ids, pretty)
-		util.Print(ctx, w, page, err)
-		util.MemPut(ctx, key, page, 10*time.Minute)
+		page, err := format.Json(ids, pretty)
+		format.Print(ctx, w, page, err)
+		cache.Put(ctx, key, page, 10*time.Minute)
 	default:
 		key := "Review_list_html"
-		if cached, hit := util.MemGet(ctx, key); hit {
-			util.Print(ctx, w, "(cache)<br>"+cached, nil)
+		if cached, hit := cache.Get(ctx, key); hit {
+			format.Print(ctx, w, "(cache)<br>"+cached, nil)
 			return
 		}
 
@@ -41,8 +42,8 @@ func List(w http.ResponseWriter, r *http.Request) {
 		for _, id := range ids {
 			page = page + strconv.Itoa(id) + "<br>"
 		}
-		util.Print(ctx, w, page, nil)
-		util.MemPut(ctx, key, page, 10*time.Minute)
+		format.Print(ctx, w, page, nil)
+		cache.Put(ctx, key, page, 10*time.Minute)
 	}
 
 }

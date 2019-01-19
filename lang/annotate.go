@@ -7,8 +7,9 @@ import (
 	"net/url"
 	"strconv"
 
+	"github.com/itsubaki/appstore-api/format"
+
 	language "cloud.google.com/go/language/apiv1"
-	"github.com/itsubaki/appstore-api/util"
 	"google.golang.org/appengine"
 	pb "google.golang.org/genproto/googleapis/cloud/language/v1"
 )
@@ -60,8 +61,8 @@ func Annotate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	page, err := util.Json(resp, pretty)
-	util.Print(ctx, w, page, err)
+	page, err := format.Json(resp, pretty)
+	format.Print(ctx, w, page, err)
 }
 
 func parse(values url.Values) (bool, bool, bool) {
