@@ -14,7 +14,7 @@ import (
 func List(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	output := r.URL.Query().Get("output")
+	output := r.URL.Query().Get("format")
 	pretty := r.URL.Query().Get("pretty")
 	limit := appstoreurl.Limit(r.URL.Query(), 200)
 

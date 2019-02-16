@@ -21,7 +21,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	output := r.URL.Query().Get("output")
+	output := r.URL.Query().Get("format")
 	query := r.URL.Query().Get("query")
 	pretty := r.URL.Query().Get("pretty")
 	limit := appstoreurl.Limit(r.URL.Query(), 50)
