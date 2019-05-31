@@ -96,7 +96,6 @@ func IndexPut(ctx context.Context, name string, feed *model.AppFeed) {
 	timestamp := strconv.FormatInt(now.Unix(), 10)
 
 	for _, app := range feed.AppList {
-
 		doc := model.AppDoc{
 			Rank:      strconv.Itoa(app.Rank),
 			ID:        app.ID,

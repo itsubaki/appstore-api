@@ -18,7 +18,7 @@ func Latest(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query().Get("query")
 	pretty := r.URL.Query().Get("pretty")
 
-	limit := appstoreurl.Limit(r.URL.Query(), 20)
+	limit := appstoreurl.Limit(r.URL.Query(), 200)
 	genre, feed, country := appstoreurl.Parse(r.URL.Query())
 	url := appstoreurl.RankingURL(limit, genre, feed, country)
 	log.Infof(ctx, url)

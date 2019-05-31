@@ -18,7 +18,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	output := r.URL.Query().Get("format")
 	pretty := r.URL.Query().Get("pretty")
 	query := Query(r.URL.Query())
-	limit := appstoreurl.Limit(r.URL.Query(), 50)
+	limit := appstoreurl.Limit(r.URL.Query(), 200)
 	genre, feed, country := appstoreurl.Parse(r.URL.Query())
 
 	name := "Ranking_" + country + "_" + feed + "_" + genre
