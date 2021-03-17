@@ -1,7 +1,5 @@
 # appstore-api
 
-## Feature
-
  - AppStore Review Search API Server with GAE
 
 ## Required
@@ -21,7 +19,7 @@ $ go get github.com/itsubaki/appstore-api
 ```go
 package main
 
-import "github.com/itsubaki/appstore-api"
+import api "github.com/itsubaki/appstore-api"
 
 func init() {
     api.Init()
