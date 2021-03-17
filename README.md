@@ -2,13 +2,11 @@
 
 ## Feature
 
- - Collect Review from AppStore and Store to GCP Datastore/Search
- - Provide WebAPI for Search in GCP Datastore/Search
+ - AppStore Review Search API Server with GAE
 
 ## Required
 
  - go 1.8
- - GCP Account
 
 # How to Build
 
@@ -24,9 +22,7 @@ $ go get github.com/itsubaki/appstore-api
 // main.go
 package example
 
-import (
-    "github.com/itsubaki/appstore-api"
-)
+import "github.com/itsubaki/appstore-api"
 
 func init() {
     api.Init()
@@ -58,7 +54,7 @@ handlers:
 ```console
 $ ls
 app.yaml cron.yaml main.go
-$ gcloud app deploy app.yaml --project ${PROJECT_ID}
+$ gcloud app deploy app.yaml  --project ${PROJECT_ID}
 $ gcloud app deploy cron.yaml --project ${PROJECT_ID}
 ```
 
