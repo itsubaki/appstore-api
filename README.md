@@ -19,8 +19,7 @@ $ go get github.com/itsubaki/appstore-api
 ## Make GAE Application
 
 ```go
-// main.go
-package example
+package main
 
 import "github.com/itsubaki/appstore-api"
 
